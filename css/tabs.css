@@ -1,11 +1,5 @@
 /* ─── HOME ─── */
-.home-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:16px; }
-.home-about { grid-column:1/-1; padding:16px 18px; font-size:13.5px; line-height:1.75; color:var(--ink-soft); }
-.stat-card  { padding:16px 18px; display:flex; align-items:center; gap:13px; }
-.stat-icon  { width:36px; height:36px; border-radius:10px; background:var(--accent-dim); border:1px solid rgba(124,90,246,.22); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent-hi); }
-.stat-icon svg { width:16px; height:16px; }
-.stat-val   { font-size:18px; font-weight:700; font-family:var(--font-mono); color:var(--ink); line-height:1; }
-.stat-label { font-size:10.5px; color:var(--ink-soft); margin-top:3px; font-family:var(--font-mono); }
+.home-about { padding:16px 18px; font-size:13.5px; line-height:1.75; color:var(--ink-soft); margin-bottom:0; }
 
 /* ─── KOVAAKS ─── */
 .live-badge {
@@ -163,8 +157,10 @@
 
 /* ─── RESPONSIVE ─── */
 @media (max-width:680px) {
-  .home-grid,.gear-grid,.socials-grid { grid-template-columns:1fr; }
+  .gear-grid,.socials-grid { grid-template-columns:1fr; }
   .hs-grid,.vod-grid { grid-template-columns:1fr 1fr; }
+  .profile-bottom-row { gap:8px; }
+  .profile-actions { gap:5px; }
 }
 @media (max-width:440px) {
   .hs-grid,.vod-grid { grid-template-columns:1fr; }
