@@ -1,6 +1,5 @@
 /* app.js */
 
-/* ── toast ── */
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -8,64 +7,43 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-/* ── tab loader ── */
-const TAB_CACHE = {};
-
-async function switchTab(name) {
-  // update nav
+/* ── tab switching — uses TABS object from tabs.js, no fetch ── */
+function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.tab === name)
   );
-
   const area = document.getElementById('content-area');
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(8px)';
 
-  // show loading skeleton briefly if not cached
-  if (!TAB_CACHE[name]) {
-    area.style.opacity = '0';
-    area.style.transform = 'translateY(8px)';
-  }
+  const html = TABS[name] || '<div class="no-posts">tab not found</div>';
+  area.innerHTML = html;
 
-  // fetch tab html
-  if (!TAB_CACHE[name]) {
-    try {
-      const r = await fetch(`tabs/${name}.html`);
-      TAB_CACHE[name] = await r.text();
-    } catch {
-      TAB_CACHE[name] = `<div class="no-posts">failed to load tab</div>`;
-    }
-  }
-
-  area.innerHTML = TAB_CACHE[name];
-
-  // animate in
   requestAnimationFrame(() => {
     area.style.transition = 'opacity .28s cubic-bezier(.22,1,.36,1), transform .28s cubic-bezier(.22,1,.36,1)';
     area.style.opacity = '1';
     area.style.transform = 'translateY(0)';
   });
 
-  // run tab-specific init
   onTabLoad(name);
 }
 
 function onTabLoad(name) {
-  if (name === 'home') {
-    loadLatestPost();
-  } else if (name === 'kovaaks') {
-    loadKovaaksHighscores();
-    loadPosts(); // needed for vods
-  } else if (name === 'posts') {
-    loadPosts();
-  } else if (name === 'comments') {
-    loadComments();
-  } else if (name === 'routine') {
-    // re-attach routineItems after DOM swap
-    reinitRoutine();
-    loadLastRoutineCompletion();
-  } else if (name === 'pc') {
-    renderPcParts('studio-pc-rows', STUDIO_PARTS);
-    renderPcParts('gaming-pc-rows', GAMING_PARTS);
-  }
+  if (name === 'home')     { loadLatestPost(); }
+  if (name === 'kovaaks') { loadKovaaksHighscores(); loadPosts(); }
+  if (name === 'posts')   { loadPosts(); }
+  if (name === 'comments'){ loadComments(); }
+  if (name === 'routine') { reinitRoutine(); loadLastRoutineCompletion(); }
+  if (name === 'pc')      { renderPcParts('studio-pc-rows', STUDIO_PARTS); renderPcParts('gaming-pc-rows', GAMING_PARTS); }
+}
+
+/* ── visit counter — update both spots ── */
+function syncViewCount(n) {
+  const val = Number(n).toLocaleString();
+  ['view-count', 'view-count-2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  });
 }
 
 /* ── PC parts ── */
@@ -104,22 +82,15 @@ function copyConfig(id) {
 }
 function downloadConfig(id, filename) {
   const blob = new Blob([document.getElementById(id).textContent], { type: 'text/plain' });
-  const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(blob), download: filename
-  });
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: filename });
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 
 /* ── discord ── */
 function copyDiscord() {
   navigator.clipboard.writeText('kuki071').then(() => {
-    ['discord-row-name'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const orig = el.textContent;
-      el.textContent = 'copied ✓';
-      setTimeout(() => el.textContent = orig, 2000);
-    });
+    const el = document.getElementById('discord-row-name');
+    if (el) { el.textContent = 'copied ✓'; setTimeout(() => el.textContent = 'Discord', 2000); }
     showToast('discord tag copied ✓');
   });
 }
@@ -128,61 +99,37 @@ function copyDiscord() {
 function spawnParticles() {
   const c = document.querySelector('.banner-particles');
   if (!c) return;
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 22; i++) {
     const s = document.createElement('span');
     const sz = Math.random() * 2 + 1;
-    s.style.cssText = `
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      width:${sz}px; height:${sz}px;
-      animation-duration:${Math.random()*9+5}s;
-      animation-delay:${Math.random()*7}s;
-    `;
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;animation-duration:${Math.random()*9+5}s;animation-delay:${Math.random()*7}s;`;
     c.appendChild(s);
   }
 }
 
-/* ── routine reinit (DOM is replaced on tab load) ── */
+/* ── routine reinit after DOM swap ── */
 function reinitRoutine() {
-  // routine.js uses Array.from at init time, needs re-running after DOM swap
-  const items = Array.from(document.querySelectorAll('.routine-item'));
-  if (!items.length) return;
-  // expose fresh items to routine.js functions
-  window._routineItems = items;
-  window._routineDurations = items.map(el => parseInt(el.dataset.mins, 10) * 60);
+  window._routineItems     = Array.from(document.querySelectorAll('.routine-item'));
+  window._routineDurations = window._routineItems.map(el => parseInt(el.dataset.mins, 10) * 60);
   fmtTotal();
 }
 
-/* ── view counter sync (show in both spots) ── */
-function syncViewCount(n) {
-  ['view-count', 'view-count-2'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = Number(n).toLocaleString();
-  });
-}
-
-/* ── modal & vod overlay wiring (delegated since DOM changes) ── */
+/* ── delegated modal/vod close ── */
 document.addEventListener('click', e => {
-  const overlay = e.target.closest('#delete-modal');
-  if (overlay && e.target === overlay) closeModal();
-  const vod = e.target.closest('#vod-player-overlay');
-  if (vod && e.target === vod) closeVodPlayer();
+  if (e.target.id === 'delete-modal')       closeModal();
+  if (e.target.id === 'vod-player-overlay') closeVodPlayer();
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeModal();
-    closeVodPlayer();
-  }
+  if (e.key === 'Escape') { closeModal(); closeVodPlayer(); }
 });
 document.getElementById('pin-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') confirmDelete();
 });
 
 /* ── avatar status ── */
-const STATUS = 'gaming'; // 'online' | 'gaming' | 'away' | 'offline'
-document.getElementById('avatar-status-dot').classList.add(STATUS);
+document.getElementById('avatar-status-dot').classList.add('gaming');
 
 /* ── init ── */
 spawnParticles();
-initCounter();           // supabase.js — also calls syncViewCount
-switchTab('home');       // load first tab
+initCounter();
+switchTab('home');
