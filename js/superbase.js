@@ -60,9 +60,9 @@ async function initCounter() {
     await api('rpc/increment_visits', { method: 'POST', body: JSON.stringify({}) });
     const r = await api('visits?id=eq.1&select=count');
     const d = await r.json();
-    document.getElementById('view-count').textContent = Number(d[0].count).toLocaleString();
+    syncViewCount(d[0].count);
   } catch {
-    document.getElementById('view-count').textContent = '—';
+    syncViewCount('—');
   }
 }
 
