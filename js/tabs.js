@@ -7,7 +7,7 @@ home: `
 <div class="card home-about">
   i'm kuki — developer, gamer, and someone who spends way too much time in CS2 and Kovaaks.
   i like story games a lot, especially Wolfenstein.
-  for projects and code check my GitHub.
+  coding is my escape check out my github.
 </div>
 <div class="section-title" style="margin-top:16px">latest post</div>
 <div class="posts-list" id="latest-post-card">
