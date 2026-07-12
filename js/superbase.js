@@ -42,7 +42,7 @@ function formatDate(iso) {
 
 function youtubeId(url) {
   if (!url) return null;
-  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\\w-]{11})/);
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
   return m ? m[1] : null;
 }
 function youtubeEmbed(url) {
