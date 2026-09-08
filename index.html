@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>kuki.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="bg">
+    <div class="rain" id="rainRoot">
+      <div class="wind-zone wind-left"></div>
+      <div class="wind-zone wind-left center"></div>
+      <div class="wind-zone wind-right center"></div>
+      <div class="wind-zone wind-right"></div>
+    </div>
+  </div>
+  <div class="grain"></div>
+
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <div class="wrap">
+    <div class="card">
+
+      <div class="banner">
+        <div class="banner-pattern"></div>
+        <div class="banner-scan"></div>
+        <div class="banner-edge"></div>
+      </div>
+
+      <div class="identity">
+        <div class="avatar-ring">
+          <img src="https://i.imgur.com/8Km9tLL.png" alt="kuki avatar" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23161622%22/></svg>'">
+        </div>
+        <div class="name-row">
+          <span class="name">kuki</span>
+          <span class="badge">DEV</span>
+        </div>
+        <div class="meta-row">
+          <span><span class="dot"></span> online</span>
+          <span><span id="visit-count">319</span> visits</span>
+        </div>
+        <div class="meta-socials-row">
+          <a class="social-btn" href="#" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg></a>
+          <a class="social-btn" href="#" title="Steam"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.7 2 2.4 6 2 11.1l5.4 2.2a2.9 2.9 0 0 1 1.6-.5l2.4-3.5v-.1a3.6 3.6 0 1 1 3.6 3.6h-.1l-3.5 2.5a2.9 2.9 0 0 1-5.5 1L2.3 15C3.4 19 7.3 22 12 22a10 10 0 0 0 0-20Zm-2.8 15.3-1.2-.5a2.2 2.2 0 0 0 2.9 1.2 2.2 2.2 0 0 0 1.1-2.9l-1.2-.5a1.3 1.3 0 0 1-1.6 2.7Zm7.7-7.9a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0Z"/></svg></a>
+          <a class="social-btn" href="#" title="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4A18 18 0 0 0 15.9 4l-.3.5a13 13 0 0 1 3.9 1.5A16 16 0 0 0 12 4a16 16 0 0 0-7.5 2 13 13 0 0 1 4-1.5L8.1 4a18 18 0 0 0-4.4 1.4C1.4 9.6.8 13.7 1 17.7a18 18 0 0 0 5.4 2.7l.8-1.3a11 11 0 0 1-1.8-.9l.4-.3a13 13 0 0 0 11.9 0l.4.3a11 11 0 0 1-1.8.9l.8 1.3a18 18 0 0 0 5.4-2.7c.3-4.5-.5-8.6-3.2-12.3ZM8.7 15.3c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.2 1.8-2.2s1.9 1 1.8 2.2c0 1.1-.8 2.1-1.8 2.1Zm6.6 0c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.2 1.8-2.2s1.9 1 1.8 2.2c0 1.1-.8 2.1-1.8 2.1Z"/></svg></a>
+          <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="tabs" id="tabs">
+        <div class="tab-indicator" id="tabIndicator"></div>
+        <button class="tab active" data-panel="home">home</button>
+        <button class="tab" data-panel="posts">posts</button>
+        <button class="tab" data-panel="comments">comments</button>
+        <button class="tab" data-panel="socials">socials</button>
+      </nav>
+
+      <div class="panels">
+
+        <div class="panel active" id="home">
+          <div class="section-label">home</div>
+          <div class="post-card pinned">
+            <div class="post-title">
+              <span class="pin-icon" title="pinned"><svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M12 2a5 5 0 0 0-5 5c0 2.4 1.6 4.9 3.3 6.7L7 21l5-2.6 5 2.6-3.3-7.3C15.4 11.9 17 9.4 17 7a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></span>
+              <span>about</span>
+            </div>
+            <div class="post-date">pinned</div>
+            <div class="post-body">
+              i'm <b>kuki</b>, developer, gamer, and someone who spends way too much time in CS2 and Kovaaks.
+              i like story games a lot, especially Wolfenstein. coding is my escape, check out my github.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="posts">
+          <div class="section-label">latest post</div>
+          <div class="post-card">
+            <div class="post-title">
+              <a href="#">New site: kovaaks-manager</a>
+              <span class="tag">KOVAAKS</span>
+            </div>
+            <div class="post-date">29 Jun 2026</div>
+            <div class="post-body">
+              hello people, i made a new site for kovaaks playlists so u can organize them nicely. it likely won't get updates
+              but u can comment what u want me to add. the routine part is currently broken, will update this post when it's fixed. ty for reading, have a nice day.
+            </div>
+            <div class="post-foot">♡ 0</div>
+          </div>
+        </div>
+
+        <div class="panel" id="comments"><div class="empty">no comments yet</div></div>
+
+        <div class="panel" id="socials">
+          <div class="find-me-label">FIND ME</div>
+          <div class="social-grid">
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#e11d2e;">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">YouTube</div>
+                <div class="social-handle">Kuki_tech</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#2b2f3a;">
+                <svg viewBox="0 0 24 24" fill="#e5e7eb"><path d="M12 2C6.7 2 2.4 6 2 11.1l5.4 2.2a2.9 2.9 0 0 1 1.6-.5l2.4-3.5v-.1a3.6 3.6 0 1 1 3.6 3.6h-.1l-3.5 2.5a2.9 2.9 0 0 1-5.5 1L2.3 15C3.4 19 7.3 22 12 22a10 10 0 0 0 0-20Zm-2.8 15.3-1.2-.5a2.2 2.2 0 0 0 2.9 1.2 2.2 2.2 0 0 0 1.1-2.9l-1.2-.5a1.3 1.3 0 0 1-1.6 2.7Zm7.7-7.9a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">Steam</div>
+                <div class="social-handle">kuki0771</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#c2410c;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">Kovaaks</div>
+                <div class="social-handle">kuki0771</div>
+              </div>
+            </a>
+
+            <div class="social-item" id="discord-copy" data-handle="kuki071">
+              <div class="social-icon" style="background:#5865F2;">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M20.3 5.4A18 18 0 0 0 15.9 4l-.3.5a13 13 0 0 1 3.9 1.5A16 16 0 0 0 12 4a16 16 0 0 0-7.5 2 13 13 0 0 1 4-1.5L8.1 4a18 18 0 0 0-4.4 1.4C1.4 9.6.8 13.7 1 17.7a18 18 0 0 0 5.4 2.7l.8-1.3a11 11 0 0 1-1.8-.9l.4-.3a13 13 0 0 0 11.9 0l.4.3a11 11 0 0 1-1.8.9l.8 1.3a18 18 0 0 0 5.4-2.7c.3-4.5-.5-8.6-3.2-12.3ZM8.7 15.3c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.2 1.8-2.2s1.9 1 1.8 2.2c0 1.1-.8 2.1-1.8 2.1Zm6.6 0c-1 0-1.8-1-1.8-2.1 0-1.2.8-2.2 1.8-2.2s1.9 1 1.8 2.2c0 1.1-.8 2.1-1.8 2.1Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">Discord</div>
+                <div class="social-handle">kuki071 (click to copy)</div>
+              </div>
+            </div>
+
+            <a class="social-item" href="https://github.com/dev-kuki" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#161b22;">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.8 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">GitHub</div>
+                <div class="social-handle">dev-kuki</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#000;">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M18.9 2H22l-7.5 8.6L23.3 22H16.7l-5.2-6.8L5.5 22H2.4l8-9.2L1.7 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.7L7.4 4h-1.8l12.1 16Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">X / Twitter</div>
+                <div class="social-handle">@dev_kuki</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#1DB954;">
+                <svg viewBox="0 0 24 24" fill="#000"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.6.6 0 0 1-.8.2c-2.3-1.4-5.2-1.7-8.6-1a.6.6 0 1 1-.3-1.2c3.7-.8 6.9-.5 9.5 1.1a.6.6 0 0 1 .2.9Zm1.2-2.7a.75.75 0 0 1-1 .3c-2.6-1.6-6.6-2.1-9.7-1.1a.75.75 0 1 1-.5-1.4c3.5-1.1 7.9-.6 10.9 1.2a.75.75 0 0 1 .3 1Zm.1-2.8c-3.1-1.8-8.3-2-11.3-1.1a.9.9 0 1 1-.5-1.7c3.4-1 9.1-.8 12.7 1.3a.9.9 0 0 1-.9 1.5Z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">Spotify</div>
+                <div class="social-handle">kuki</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#9146FF;">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M4.3 2 2 7.6v12.1h5.4V22l3.4-2.3h3L20 13.6V2H4.3Zm13.9 10.6-3 3h-3l-2.7 2.7v-2.7H5.7V3.7h12.5v8.9Z"/><path d="M15.4 6.6h1.7v5h-1.7zM10.9 6.6h1.7v5h-1.7z"/></svg>
+              </div>
+              <div class="social-text">
+                <div class="social-name">Twitch</div>
+                <div class="social-handle">Kuki8598989</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="#" target="_blank" rel="noopener">
+              <div class="social-icon" style="background:#1a1a1e;">
+                <img src="https://www.google.com/s2/favicons?domain=medal.tv&sz=64" alt="Medal" style="width:18px;height:18px;border-radius:4px;">
+              </div>
+              <div class="social-text">
+                <div class="social-name">Medal</div>
+                <div class="social-handle">kuki578</div>
+              </div>
+            </a>
+
+            <a class="social-item" href="mailto:you@tuta.io">
+              <div class="social-icon" style="background:#1a1a1e;">
+                <img src="https://www.google.com/s2/favicons?domain=tuta.com&sz=64" alt="Tuta" style="width:18px;height:18px;border-radius:4px;">
+              </div>
+              <div class="social-text">
+                <div class="social-name">Email</div>
+                <div class="social-handle">tuta.io</div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
