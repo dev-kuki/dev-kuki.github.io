@@ -548,6 +548,10 @@
   z-index:5;
   cursor:default;
 }
+.admin-unlock-left{
+  right:auto;
+  left:0;
+}
 
 /* ---------- status pill ---------- */
 .status-pill{
@@ -723,4 +727,19 @@
   border:1px solid var(--border);
   border-radius:var(--radius-sm);
   padding:9px 11px;
+}
+
+/* ---------- post video embed ---------- */
+.post-video{
+  margin-top:10px;
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  background:#000;
+}
+.post-video iframe,
+.post-video video{
+  width:100%;
+  aspect-ratio:16/9;
+  display:block;
+  border:0;
 }
