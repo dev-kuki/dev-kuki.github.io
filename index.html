@@ -21,9 +21,6 @@
   </div>
   <div class="grain"></div>
 
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
-
   <div class="wrap">
     <div class="card">
 
@@ -31,6 +28,7 @@
         <div class="banner-pattern"></div>
         <div class="banner-scan"></div>
         <div class="banner-edge"></div>
+        <div class="admin-unlock" id="adminUnlockZone" title=""></div>
       </div>
 
       <div class="identity">
@@ -41,6 +39,15 @@
           <span class="name">kuki</span>
           <span class="badge">DEV</span>
         </div>
+
+        <div class="status-pill" id="statusPill" style="display:none;">
+          <img class="status-icon" id="statusIcon" src="" alt="">
+          <div class="status-text">
+            <div class="status-label" id="statusLabel"></div>
+            <div class="status-time" id="statusTime"></div>
+          </div>
+        </div>
+
         <div class="meta-row">
           <span><span class="dot"></span> online</span>
           <span><span id="visit-count">319</span> visits</span>
@@ -64,6 +71,8 @@
       <div class="panels">
 
         <div class="panel active" id="home">
+          <button class="goto-socials-btn" type="button" data-goto="socials">go to socials →</button>
+          <div id="adminStatusForm"></div>
           <div class="section-label">home</div>
           <div class="post-card pinned">
             <div class="post-title">
@@ -79,22 +88,17 @@
         </div>
 
         <div class="panel" id="posts">
-          <div class="section-label">latest post</div>
-          <div class="post-card">
-            <div class="post-title">
-              <a href="#">New site: kovaaks-manager</a>
-              <span class="tag">KOVAAKS</span>
-            </div>
-            <div class="post-date">29 Jun 2026</div>
-            <div class="post-body">
-              hello people, i made a new site for kovaaks playlists so u can organize them nicely. it likely won't get updates
-              but u can comment what u want me to add. the routine part is currently broken, will update this post when it's fixed. ty for reading, have a nice day.
-            </div>
-            <div class="post-foot">♡ 0</div>
-          </div>
+          <div id="adminPostForm"></div>
+          <div class="section-label">posts</div>
+          <div id="postsList"><div class="empty">loading...</div></div>
         </div>
 
-        <div class="panel" id="comments"><div class="empty">no comments yet</div></div>
+        <div class="panel" id="comments">
+          <div class="section-label">leave a comment</div>
+          <div id="commentForm"></div>
+          <div class="section-label" style="margin-top:18px;">comments</div>
+          <div id="commentsList"><div class="empty">loading...</div></div>
+        </div>
 
         <div class="panel" id="socials">
           <div class="find-me-label">FIND ME</div>
@@ -207,6 +211,7 @@
     </div>
   </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
