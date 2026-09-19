@@ -116,8 +116,8 @@
   }
 
   // ---------- admin unlock: click top-right corner 3x, then enter pin ----------
-  (function setupAdminUnlock() {
-    const zone = document.getElementById('adminUnlockZone');
+  function setupCornerUnlock(zoneId, onUnlock) {
+    const zone = document.getElementById(zoneId);
     if (!zone) return;
     let clicks = 0;
     let resetTimer = null;
@@ -132,6 +132,8 @@
             adminPin = null;
             sessionStorage.removeItem('kuki_admin_pin');
             renderAll();
+          } else if (onUnlock) {
+            onUnlock();
           }
           return;
         }
@@ -142,9 +144,19 @@
         // we don't know yet if it's right — the next real action (posting,
         // deleting, setting status) is what actually gets checked server-side.
         renderAll();
+        if (onUnlock) onUnlock();
       }
     });
-  })();
+  }
+
+  setupCornerUnlock('adminUnlockZone');
+  setupCornerUnlock('adminUnlockZoneLeft', () => {
+    activateTab('posts');
+    setTimeout(() => {
+      const t = document.getElementById('newPostTitle');
+      if (t) t.focus();
+    }, 60);
+  });
 
   function renderAll() {
     renderAdminStatusForm();
@@ -185,6 +197,7 @@
           ${isAdmin() ? `<button class="admin-delete" data-delete-post="${p.id}" style="margin-left:auto;">delete</button>` : ''}
         </div>
         <div class="post-date">${formatDate(p.created_at)}</div>
+        ${renderVideoEmbed(p.video_url)}
         <div class="post-body">${escapeHtml(p.body)}</div>
       </div>
     `).join('');
@@ -193,9 +206,18 @@
     });
   }
 
-  async function createPost(title, tag, body) {
+  function renderVideoEmbed(url) {
+    if (!url) return '';
+    const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+    if (yt) {
+      return `<div class="post-video"><iframe src="https://www.youtube.com/embed/${yt[1]}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
+    }
+    return `<div class="post-video"><video src="${escapeHtml(url)}" controls preload="metadata"></video></div>`;
+  }
+
+  async function createPost(title, videoUrl, body) {
     const { error } = await sb.rpc('create_post', {
-      p_pin: adminPin, p_title: title, p_tag: tag || null, p_body: body
+      p_pin: adminPin, p_title: title, p_video_url: videoUrl || null, p_body: body
     });
     if (error) {
       if (await handlePinError(error)) return;
@@ -225,20 +247,20 @@
         <div class="admin-block-label">new post (admin)</div>
         <div class="form-row">
           <input class="form-input" id="newPostTitle" type="text" placeholder="title" maxlength="120">
-          <input class="form-input" id="newPostTag" type="text" placeholder="tag (optional)" maxlength="24">
-          <textarea class="form-textarea" id="newPostBody" placeholder="write the post..." maxlength="2000"></textarea>
+          <input class="form-input" id="newPostVideo" type="text" placeholder="video URL (optional — YouTube link or direct video file)" maxlength="500">
+          <textarea class="form-textarea" id="newPostBody" placeholder="description..." maxlength="2000"></textarea>
           <button class="form-submit" id="newPostSubmit" type="button">post</button>
         </div>
       </div>
     `;
     document.getElementById('newPostSubmit').addEventListener('click', () => {
       const title = document.getElementById('newPostTitle').value.trim();
-      const tag = document.getElementById('newPostTag').value.trim();
+      const videoUrl = document.getElementById('newPostVideo').value.trim();
       const body = document.getElementById('newPostBody').value.trim();
-      if (!title || !body) { alert('title and body are required'); return; }
-      createPost(title, tag, body);
+      if (!title || !body) { alert('title and description are required'); return; }
+      createPost(title, videoUrl, body);
       document.getElementById('newPostTitle').value = '';
-      document.getElementById('newPostTag').value = '';
+      document.getElementById('newPostVideo').value = '';
       document.getElementById('newPostBody').value = '';
     });
   }
