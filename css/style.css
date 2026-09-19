@@ -1,4 +1,4 @@
-  @property --angle{
+@property --angle{
     syntax: "<angle>";
     inherits: false;
     initial-value: 91deg;
@@ -36,40 +36,6 @@
     justify-content:center;
     overflow-x:hidden;
     position:relative;
-    cursor:none;
-  }
-  @media (pointer:coarse){
-    body{ cursor:auto; }
-    .cursor-dot, .cursor-ring{ display:none; }
-  }
-
-  .cursor-dot, .cursor-ring{
-    position:fixed;
-    top:0;
-    left:0;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:9999;
-    mix-blend-mode:difference;
-    transform:translate(-50%,-50%);
-  }
-  .cursor-dot{
-    width:6px;
-    height:6px;
-    background:#fff;
-    transition:transform .12s ease;
-  }
-  .cursor-ring{
-    width:28px;
-    height:28px;
-    border:1px solid #fff;
-    background:transparent;
-    transition:transform .18s ease, width .18s ease, height .18s ease, opacity .18s ease;
-  }
-  .cursor-ring.active{
-    width:40px;
-    height:40px;
-    border-color:var(--accent);
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -550,10 +516,6 @@
   }
 
 /* ---------- interaction fixes ---------- */
-@media (pointer:fine){
-  body, a, button, .tab, .social-item, #discord-copy{ cursor:none; }
-}
-
 .tab:focus-visible,
 .social-item:focus-visible,
 .social-btn:focus-visible{
@@ -571,9 +533,194 @@
 
   .tab-indicator,
   .social-btn,
-  .social-item,
-  .cursor-dot,
-  .cursor-ring{
+  .social-item{
     transition:none !important;
   }
+}
+
+/* ---------- admin unlock zone (invisible, top-right of banner) ---------- */
+.admin-unlock{
+  position:absolute;
+  top:0;
+  right:0;
+  width:56px;
+  height:56px;
+  z-index:5;
+  cursor:default;
+}
+
+/* ---------- status pill ---------- */
+.status-pill{
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  width:fit-content;
+  max-width:100%;
+}
+.status-icon{
+  width:24px;
+  height:24px;
+  border-radius:6px;
+  object-fit:cover;
+  flex:0 0 auto;
+}
+.status-text{ min-width:0; }
+.status-label{
+  font-size:12px;
+  font-weight:600;
+  color:var(--text-0);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.status-time{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text-2);
+  margin-top:1px;
+}
+
+/* ---------- go to socials button ---------- */
+.goto-socials-btn{
+  display:block;
+  width:100%;
+  font-family:var(--mono);
+  font-size:11.5px;
+  color:var(--text-1);
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  text-align:center;
+  cursor:pointer;
+  margin-bottom:14px;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+.goto-socials-btn:hover{
+  border-color:var(--accent);
+  color:var(--text-0);
+  background:rgba(79,178,255,0.06);
+}
+
+/* ---------- comment form + list ---------- */
+.form-row{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.form-input,
+.form-textarea{
+  width:100%;
+  font-family:var(--display);
+  font-size:13px;
+  color:var(--text-0);
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:9px 11px;
+  resize:vertical;
+}
+.form-textarea{ min-height:70px; }
+.form-input:focus,
+.form-textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+.form-submit{
+  font-family:var(--mono);
+  font-size:11.5px;
+  color:var(--text-0);
+  background:var(--accent-soft);
+  border:1px solid rgba(79,178,255,0.4);
+  border-radius:var(--radius-sm);
+  padding:9px 14px;
+  cursor:pointer;
+  align-self:flex-start;
+  transition:background .15s ease;
+}
+.form-submit:hover{ background:rgba(79,178,255,0.22); }
+.form-error{
+  font-family:var(--mono);
+  font-size:11px;
+  color:#f87171;
+}
+
+.comment-card{
+  margin-top:12px;
+  padding:12px 14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  position:relative;
+}
+.comment-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.comment-name{
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--text-0);
+}
+.comment-date{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text-2);
+}
+.comment-body{
+  margin-top:6px;
+  font-size:12.5px;
+  line-height:1.55;
+  color:var(--text-1);
+  word-break:break-word;
+}
+
+/* ---------- admin-only delete control ---------- */
+.admin-delete{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text-2);
+  background:transparent;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:3px 7px;
+  cursor:pointer;
+  transition:border-color .15s ease, color .15s ease;
+}
+.admin-delete:hover{
+  border-color:#f87171;
+  color:#f87171;
+}
+
+/* ---------- admin: new post form ---------- */
+.admin-block{
+  margin-bottom:14px;
+  padding:12px 14px;
+  background:rgba(79,178,255,0.05);
+  border:1px solid rgba(79,178,255,0.25);
+  border-radius:var(--radius-sm);
+}
+.admin-block-label{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.08em;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.admin-select{
+  width:100%;
+  font-family:var(--display);
+  font-size:13px;
+  color:var(--text-0);
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:9px 11px;
 }
