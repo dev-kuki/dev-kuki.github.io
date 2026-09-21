@@ -1,47 +1,4 @@
-// rain background: generate drops as direct children of #rainRoot
-  // (siblings of the .wind-zone divs, so the ~ hover selectors reach them)
-  const rainRoot = document.getElementById('rainRoot');
-  if (rainRoot) {
-    const DROP_COUNT = 260; // scaled down from the original 500 for perf; still dense
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < DROP_COUNT; i++) {
-      const d = document.createElement('div');
-      d.className = 'drop';
-      const left = (Math.random() * 120).toFixed(2) + 'vw';
-      const borderLeft = (Math.random() * 8).toFixed(2) + 'vmin';
-      const opacity = (0.1 + Math.random() * 0.8).toFixed(2);
-      const duration = (0.15 + Math.random() * 2.1).toFixed(2) + 's';
-      const delay = (-(0.5 + Math.random() * 12)).toFixed(2) + 's';
-      d.style.left = left;
-      d.style.borderLeftWidth = borderLeft;
-      d.style.opacity = opacity;
-      d.style.animationDuration = duration;
-      d.style.animationDelay = delay;
-      frag.appendChild(d);
-    }
-    rainRoot.appendChild(frag);
-  }
-
-  // random lightning flash, every 2-5s
-  function triggerLightning() {
-    if (rainRoot) {
-      rainRoot.classList.remove('auto-flash');
-      void rainRoot.offsetWidth; // restart the animation
-      rainRoot.classList.add('auto-flash');
-      setTimeout(() => rainRoot.classList.remove('auto-flash'), 500);
-    }
-  }
-
-  function scheduleLightning() {
-    const delay = 2000 + Math.random() * 3000; // every 2-5s
-    setTimeout(() => {
-      triggerLightning();
-      scheduleLightning();
-    }, delay);
-  }
-  scheduleLightning();
-
-  // discord click-to-copy
+// discord click-to-copy
   const discordItem = document.getElementById('discord-copy');
   if (discordItem) {
     discordItem.addEventListener('click', () => {
