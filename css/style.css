@@ -1,10 +1,4 @@
-@property --angle{
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 91deg;
-  }
-
-  :root{
+:root{
     --bg-0:#0a0a0a;
     --glass:rgba(255,255,255,0.045);
     --glass-strong:rgba(255,255,255,0.08);
@@ -19,7 +13,7 @@
     --radius-md:16px;
     --radius-sm:10px;
     --mono:'JetBrains Mono',ui-monospace,monospace;
-    --display:'Space Grotesk',system-ui,sans-serif;
+    --display:'Plus Jakarta Sans',system-ui,sans-serif;
   }
 
   *{box-sizing:border-box;}
@@ -38,69 +32,35 @@
     position:relative;
   }
 
-  @media (prefers-reduced-motion:reduce){
-    .drop, .rain{ animation:none !important; }
-  }
-
-  /* ---------- moving background: click-and-hold rain scene ---------- */
+  /* ---------- moving background: looping video ---------- */
   .bg{
     position:fixed;
     inset:0;
     z-index:0;
     overflow:hidden;
-    background:linear-gradient(180deg, #07131c, #305472);
+    background:#0a0a0a;
   }
-
-  .rain{
+  .bg-video{
     position:absolute;
-    width:120vw;
-    height:100vh;
-    left:-10vw;
-    top:0;
-    background:transparent;
+    top:50%;
+    left:50%;
+    min-width:100%;
+    min-height:100%;
+    width:auto;
+    height:auto;
+    transform:translate(-50%,-50%);
+    object-fit:cover;
   }
-  .rain .wind-zone{
-    width:20vw;
-    height:100vh;
-    top:0;
+  .bg-tint{
     position:absolute;
-    box-sizing:border-box;
-    z-index:2;
+    inset:0;
+    background:
+      radial-gradient(120% 130% at 50% 50%, transparent 30%, rgba(10,10,10,0.55) 100%),
+      rgba(6,10,16,0.35);
   }
-  .rain .wind-left{ left:10vw; }
-  .rain .wind-right{ left:auto; right:10vw; }
-  .rain .wind-left.center{ left:30vw; }
-  .rain .wind-right.center{ right:30vw; }
-
-  .rain .wind-left:hover ~ .drop{ --angle:105deg; }
-  .rain .wind-left.center:hover ~ .drop{ --angle:96deg; }
-  .rain .wind-right.center:hover ~ .drop{ --angle:86deg; }
-  .rain .wind-right:hover ~ .drop{ --angle:75deg; }
-
-  .rain:active, .rain.auto-flash{
-    animation:lightning .1s linear 0s 2, lightning .15s ease-out .25s 1;
-  }
-  @keyframes lightning{
-    50%{
-      background:
-        radial-gradient(circle at calc(50% - 10vw) -20%, #fff4, #fff0 20%),
-        linear-gradient(180deg, #fff9, #fff3);
-    }
-  }
-
-  .drop{
-    --angle:91deg;
-    border:0.25vmin solid transparent;
-    border-bottom-color:#abc2e9;
-    position:absolute;
-    top:-5vmin;
-    animation-name:fall;
-    animation-timing-function:ease-in;
-    animation-iteration-count:infinite;
-  }
-  @keyframes fall{
-    0%{ transform:rotate(var(--angle)) translateX(0); }
-    100%{ transform:rotate(var(--angle)) translateX(calc(100vh + 5vmin)); }
+  @media (prefers-reduced-motion:reduce){
+    .bg-video{ display:none; }
+    .bg{ background:#0a0a0a; }
   }
 
   .grain{
@@ -524,8 +484,6 @@
 }
 
 @media (prefers-reduced-motion:reduce){
-  .drop,
-  .rain,
   .banner-scan,
   .panel.active{
     animation:none !important;
